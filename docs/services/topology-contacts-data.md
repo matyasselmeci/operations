@@ -29,6 +29,86 @@ Certain things to check are:
     See below for instructions on how to get that information.)
 
 
+### Fixing issues
+
+You may run into CI failures or other issues during the review that require changes to the PR.
+If you believe the admin can easily make the changes themselves, request changes via GitHub comments or a review message.
+Otherwise, make the changes yourself.
+
+Fixing issues yourself requires a local clone of the topology repo.
+Make sure `master` branch in your clone is up-to-date with the `master` branch in the `opensciencegrid` repo.
+
+The easiest method of making changes is to directly push the changes to their PR branch.
+You may only do this if both of the following are true:
+
+-   They have enabled pushes by maintainers to their branch.
+    If this is true, you should see text in the GitHub interface like this:
+
+    > Add more commits by pushing to the `<BRANCH>` branch on `<USER>`/topology.
+
+-   Their branch is not `master`.
+    Modifying someone else's `master` branch gives them additional work to in order to sync up their local copies,
+    so as a courtesy, we do not do it.
+
+If both are true, follow the instructions in the [direct pushes to their PR branch](#direct-pushes-to-their-pr-branch) section.
+Otherwise, follow the instructions in the [creating your own PR](#creating-your-own-pr) section.
+
+
+#### Direct pushes to their PR branch
+
+You may make changes and directly push to their branch.
+This is the easiest method because your changes will show up immediately in the PR, and so will be tested by the CI scripts.
+
+The procedure is as follows:
+
+1.  Add their repo as a remote and fetch their changes:
+
+        :::console
+        $ git remote add <USER> https://github.com/<USER>/topology
+        $ git fetch <USER>
+
+1.  Create your own branch that tracks their PR branch:
+
+        :::console
+        $ git checkout -b <THEIR PR BRANCH>
+
+    This both creates your a branch and sets it to follow the branch they created their PR from.
+
+1.  Make and commit your changes.
+
+1.  Push your changes to their branch:
+
+        :::console
+        $ git push
+
+After performing these steps, their PR will be updated with your changes.
+
+
+#### Creating your own PR
+
+You may create your own PR that contains both the changes in their PR and your own fixes.
+
+These instructions are based on the "command line instructions" link that GitHub provides next to the "Merge pull request" button.
+
+1.  Check out a new branch based on master:
+
+        :::console
+        $ git checkout -b pr-1234-fixed master
+
+1.  Merge the user's PR into your new branch:
+
+        :::console
+        $ git pull https://github.com/<SUBMITTING USER>/topology.git <THEIR BRANCH>
+
+1.  Make your fixes and commit them.
+
+1.  Instead of merging to `master`, push your new branch to your GitHub fork.
+
+1.  Create your own PR from this branch.
+    For reference, put the original PR number in your PR.
+    Once your own PR is merged, the original PR will be marked as merged as well.
+
+
 Contacts Data
 -------------
 
